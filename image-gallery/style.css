@@ -49,18 +49,24 @@ body {
 
 .header__title {
     display: flex;
+    width: auto;
 }
 .header__logo {
     margin-right: 20px;
     height: 90px;
     width: 90px;
     background-image: url("./assets/svg/logo.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
 h1 {
+    display: inline-block;
     letter-spacing: 5px;
     font-weight: 300;
     font-size: 70px;
+    vertical-align: middle;
 }
 
 .header__search {
@@ -199,4 +205,51 @@ h1 {
 
 .rs:hover{
     fill: rgb(180, 0, 0);
+}
+
+@media screen and (max-width: 940px){
+    .img{
+        width: 760px;
+        height: 594px;
+    }
+}
+
+@media screen and (max-width: 770px){
+    .header__search{
+        width: 100%;
+    }
+
+    h1{
+        font-size: 50px;
+    }
+
+    .header__logo{
+        margin-right: 15px;
+        height: 70px;
+        width: 70px;
+    }
+}
+
+@media screen and (max-width: 570px){
+    .header__logo{
+        margin-right: 10px;
+        height: 50px;
+        width: 50px;
+    }
+
+    h1{
+        font-size: 30px;
+    }
+    .year{
+        font-size: 18px;
+    }
+
+    .github-link{
+        font-size: 18px;
+    }
+
+    .rs{
+        height: 30px;
+        width: 130px;
+    }
 }
