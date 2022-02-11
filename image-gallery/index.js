@@ -1,8 +1,20 @@
+const header = document.getElementsByTagName('header')[0]
+const headerSearch = document.querySelector('.header__search')
 const searchInput = document.querySelector('.header__input')
 const searchBtn = document.querySelector('.header__search-icon')
 const clearBtn = document.querySelector('.header__close')
 const images = document.querySelectorAll('.img')
 let query = 'https://api.unsplash.com/search/photos?query=corgi&page=2&per_page=21&client_id=TS0LXFtaXGTtxyfY0b9hxCgGu6-SvwieysgFyIcZ8Bo'
+
+window.onscroll = function() {myFunction()}
+let sticky = headerSearch.offsetTop
+function myFunction() {
+    if (window.pageYOffset >= sticky) {
+        headerSearch.classList.add("sticky");
+    } else {
+        headerSearch.classList.remove("sticky");
+    }
+}
 
 searchInput.addEventListener('input', () => {
     if (searchInput.value.length > 0){
@@ -21,7 +33,6 @@ clearBtn.addEventListener('click', () => {
 async function getData() {
     const res = await fetch(query);
     const data = await res.json();
-    console.log(data);
     showData(data)
 }
 getData();
