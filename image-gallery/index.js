@@ -1,4 +1,3 @@
-const header = document.getElementsByTagName('header')[0]
 const headerSearch = document.querySelector('.header__search')
 const searchInput = document.querySelector('.header__input')
 const searchBtn = document.querySelector('.header__search-icon')
