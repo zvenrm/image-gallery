@@ -105,8 +105,11 @@ h1 {
     outline: none;
 }
 
-.header__input::-webkit-search-cancel-button{
-    display: none;
+.header__input::-webkit-search-decoration,
+.header__input::-webkit-search-cancel-button,
+.header__input::-webkit-search-results-button,
+.header__input::-webkit-search-results-decoration{
+    -webkit-appearance:none;
 }
 
 .header__input:focus,
