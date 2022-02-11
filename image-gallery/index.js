@@ -3,7 +3,7 @@ const searchInput = document.querySelector('.header__input')
 const searchBtn = document.querySelector('.header__search-icon')
 const clearBtn = document.querySelector('.header__close')
 const images = document.querySelectorAll('.img')
-let query = 'https://api.unsplash.com/search/photos?query=corgi&page=2&per_page=21&client_id=TS0LXFtaXGTtxyfY0b9hxCgGu6-SvwieysgFyIcZ8Bo'
+let query = 'corgi'
 
 window.onscroll = function() {myFunction()}
 let sticky = headerSearch.offsetTop
@@ -30,9 +30,13 @@ clearBtn.addEventListener('click', () => {
 })
 
 async function getData() {
-    const res = await fetch(query);
+    const res = await fetch(`https://api.unsplash.com/search/photos?query=${query}&per_page=21&client_id=TS0LXFtaXGTtxyfY0b9hxCgGu6-SvwieysgFyIcZ8Bo`);
     const data = await res.json();
-    showData(data)
+    let link = `https://api.unsplash.com/search/photos?query=${query}&page=${Math.floor(Math.random() * (data.total_pages - 1)) + 1}&per_page=21&client_id=TS0LXFtaXGTtxyfY0b9hxCgGu6-SvwieysgFyIcZ8Bo`
+    const currRes = await fetch(link)
+    const currData = await currRes.json()
+    console.log(currData)
+    showData(currData)
 }
 getData();
 
@@ -44,7 +48,7 @@ async function showData(data){
 
 searchInput.addEventListener('keyup', (e) => {
     if (e.keyCode === 13) {
-        query = `https://api.unsplash.com/search/photos?query=${searchInput.value.toLowerCase()}&page=2&per_page=21&client_id=TS0LXFtaXGTtxyfY0b9hxCgGu6-SvwieysgFyIcZ8Bo`
+        query = searchInput.value.toLowerCase()
         getData()
         location.href = '#main-content'
     }
@@ -52,7 +56,7 @@ searchInput.addEventListener('keyup', (e) => {
 
 searchBtn.addEventListener('click', () => {
     if (searchInput.value.length > 0){
-        query = `https://api.unsplash.com/search/photos?query=${searchInput.value.toLowerCase()}&page=2&per_page=21&client_id=TS0LXFtaXGTtxyfY0b9hxCgGu6-SvwieysgFyIcZ8Bo`
+        query = searchInput.value.toLowerCase()
         getData()
         location.href = '#main-content'
     }
