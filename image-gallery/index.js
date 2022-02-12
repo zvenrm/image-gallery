@@ -3,7 +3,16 @@ const searchInput = document.querySelector('.header__input')
 const searchBtn = document.querySelector('.header__search-icon')
 const clearBtn = document.querySelector('.header__close')
 const images = document.querySelectorAll('.img')
+const viewImg = document.querySelector('.view-img')
+const closeImg = document.querySelector('.close-img')
+const currentImg = document.querySelector('.current-img')
+const prevImg = document.querySelector('.prev-img')
+const nextImg = document.querySelector('.next-img')
+const download = document.querySelector('.download')
 let query = 'corgi'
+let indexImg
+let imgArr = []
+let downloadLink = []
 
 window.onscroll = function() {myFunction()}
 let sticky = headerSearch.offsetTop
@@ -14,6 +23,10 @@ function myFunction() {
         headerSearch.classList.remove("sticky");
     }
 }
+
+images.forEach(el => {
+    imgArr.push(el)
+})
 
 searchInput.addEventListener('input', () => {
     if (searchInput.value.length > 0){
@@ -41,8 +54,10 @@ async function getData() {
 getData();
 
 async function showData(data){
+    downloadLink = []
     for (let i = 0; i < images.length; i++){
         images[i].style.backgroundImage = `url('${data.results[i].urls.regular}')`
+        downloadLink.push(data.results[i].links.download)
     }
 }
 
@@ -61,3 +76,43 @@ searchBtn.addEventListener('click', () => {
         location.href = '#main-content'
     }
 })
+
+images.forEach(el => {
+    el.addEventListener('click', () => {
+        document.body.classList.add('overflow-none')
+        viewImg.classList.remove('view-img-none')
+        viewImg.classList.add('view-img-anim')
+        currentImg.style.backgroundImage = el.style.backgroundImage
+        indexImg = imgArr.indexOf(el)
+        download.href = downloadLink[indexImg]
+    })
+})
+
+closeImg.addEventListener('click', () => {
+    document.body.classList.remove('overflow-none')
+    viewImg.classList.add('view-img-none')
+    viewImg.classList.remove('view-img-anim')
+})
+
+prevImg.addEventListener('click', () => {
+    if (indexImg === 0){
+        indexImg = 20
+    }
+    else{
+        indexImg -= 1
+    }
+    currentImg.style.backgroundImage = images[indexImg].style.backgroundImage
+    download.href = downloadLink[indexImg]
+})
+
+nextImg.addEventListener('click', () => {
+    if (indexImg === 20){
+        indexImg = 0
+    }
+    else{
+        indexImg += 1
+    }
+    currentImg.style.backgroundImage = images[indexImg].style.backgroundImage
+    download.href = downloadLink[indexImg]
+})
+
