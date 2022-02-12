@@ -451,3 +451,9 @@ h1 {
         height: 30px;
     }
 }
+
+@media screen and (max-width: 600px){
+    .download{
+        bottom: 150px;
+    }
+}
